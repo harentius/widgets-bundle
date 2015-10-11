@@ -1,0 +1,5 @@
+widget_admin_route_fields:
+    path: widget-admin-route-fields/{route}
+    defaults: { _controller: HarentiusWidgetsBundle:WidgetAdmin:routeFields }
+    options:
+        expose: true

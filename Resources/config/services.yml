@@ -1,0 +1,45 @@
+services:
+    harentius_widgets.admin.widget:
+        class: Harentius\WidgetsBundle\Admin\WidgetAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Content, label: Widgets, show_in_dashboard: true }
+        arguments:
+            - ~
+            - Harentius\WidgetsBundle\Entity\Widget
+            - ~
+        calls:
+            - [ setTranslationDomain, [HarentiusWidgetsBundle]]
+            - [ setTemplate, [edit, HarentiusWidgetsBundle:Widget:edit.html.twig]]
+
+
+    harentius_widgets.form.type.route:
+        class: Harentius\WidgetsBundle\Form\Type\RouteType
+        tags:
+            - { name: form.type, alias: harentius_widget_route }
+
+    harentius_widgets.form.type.route_fields:
+        class: Harentius\WidgetsBundle\Form\Type\RouteFieldsType
+        arguments:
+            - @doctrine.orm.entity_manager
+        tags:
+            - { name: form.type, alias: harentius_widget_route_fields }
+
+    harentius_widgets.form.type.position:
+        class: Harentius\WidgetsBundle\Form\Type\PositionType
+        tags:
+            - { name: form.type, alias: harentius_widget_position }
+
+    harentius_widgets.entity.widgets_repository:
+        public: false
+        class: Harentius\WidgetsBundle\Entity\Widget
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ HarentiusWidgetsBundle:Widget ]
+
+    harentius_widgets.twig.widgets_extension:
+        class: Harentius\WidgetsBundle\Twig\WidgetsExtension
+        arguments:
+            - @request_stack
+            - @harentius_widgets.entity.widgets_repository
+        tags:
+            - { name: twig.extension }
