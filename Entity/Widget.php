@@ -2,7 +2,6 @@
 
 namespace Harentius\WidgetsBundle\Entity;
 
-use Harentius\BlogBundle\Entity\Base\IdentifiableEntityTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as SymfonyConstraints;
 
@@ -11,7 +10,14 @@ use Symfony\Component\Validator\Constraints as SymfonyConstraints;
  */
 class Widget
 {
-    use IdentifiableEntityTrait;
+    /**
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 
     /**
      * @var string
@@ -80,6 +86,14 @@ class Widget
     {
         $this->priority = 0;
         $this->showOnPages = [];
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
