@@ -1,0 +1,23 @@
+{
+  "name" : "harentius/widgets-bundle",
+  "type": "symfony-bundle",
+  "description": "Symfony Bundle for easy creating and managing client-side widgets",
+  "keywords": ["Symfony widgets"],
+  "homepage": "https://github.com/harentius/widgets-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Yaroslav Osypenko",
+      "email": "yaroslav.osypenko@gmail.com",
+      "homepage": "http://folkprog.net"
+    }
+  ],
+  "autoload" : {
+    "psr-4": { "Harentius\\WidgetsBundle\\": "" }
+  },
+  "require": {
+    "php": ">=5.4.0",
+    "symfony/framework-bundle": ">=2.5",
+    "sonata-project/admin-bundle": "~2.3"
+  }
+}
