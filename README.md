@@ -7,8 +7,7 @@ Has SonataAdminBundle dependency and provide management.
 Installation
 -----------
 
-1)
-```php
+1) ```php
 $ composer.phar require harentius/widgets-bundle
 ```
 
