@@ -1,0 +1,5 @@
+doctrine:
+    orm:
+        dql:
+            string_functions:
+                find_in_set: Harentius\WidgetsBundle\Doctrine\FindInSet
