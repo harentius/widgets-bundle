@@ -66,4 +66,8 @@ harentius_widgets:
 5) Place in templates where you want:
 ```twig
     {{ harentius_widget('widgets_block_sidebar') }}
+    ....
+    {{ harentius_widget('widgets_block_bottom_left') }}
+    ....
+    {{ harentius_widget('widgets_block_bottom_right') }}
 ```
