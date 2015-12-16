@@ -3,7 +3,7 @@
   "type": "symfony-bundle",
   "description": "Symfony Bundle for easy creating and managing client-side widgets",
   "keywords": ["Symfony widgets"],
-  "homepage": "https://github.com/harentius/widgets-bundle",
+  "homepage": "http://folkprog.net/en/widgets-bundle/",
   "license": "MIT",
   "authors": [
     {
