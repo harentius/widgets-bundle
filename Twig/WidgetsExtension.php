@@ -3,15 +3,14 @@
 namespace Harentius\WidgetsBundle\Twig;
 
 use Harentius\WidgetsBundle\Entity\WidgetRepository;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class WidgetsExtension extends \Twig_Extension
 {
     /**
-     * @var Request
+     * @var RequestStack
      */
-    private $request;
+    private $requestStack;
 
     /**
      * @var WidgetRepository
@@ -24,7 +23,7 @@ class WidgetsExtension extends \Twig_Extension
      */
     public function __construct(RequestStack $requestStack, WidgetRepository $widgetRepository)
     {
-        $this->request = $requestStack->getMasterRequest();
+        $this->requestStack = $requestStack;
         $this->widgetRepository = $widgetRepository;
     }
 
@@ -39,14 +38,14 @@ class WidgetsExtension extends \Twig_Extension
     }
 
     /**
-     * @param $position
+     * @param string $position
      * @return string
      */
     public function harentiusWidget($position)
     {
-        $requestAttributes = $this->request->attributes;
-        $page = (int) $this->request->query->get('page', 1);
-        $result = '';
+        $request = $this->requestStack->getMasterRequest();
+        $requestAttributes = $request->attributes;
+        $page = (int) $request->query->get('page', 1);
 
         $parameters = $requestAttributes->get('_route_params');
         ksort($parameters);
@@ -55,6 +54,7 @@ class WidgetsExtension extends \Twig_Extension
             'parameters' => $parameters
         ];
         $widgets = $this->widgetRepository->findByRouteOrNullRouteAndPositionAndPageOrderedByPriority($route, $page, $position);
+        $result = '';
 
         foreach ($widgets as $widget) {
             $result .= $widget->getContent();
@@ -64,7 +64,7 @@ class WidgetsExtension extends \Twig_Extension
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName()
     {
