@@ -20,7 +20,7 @@ services:
     harentius_widgets.form.type.route_fields:
         class: Harentius\WidgetsBundle\Form\Type\RouteFieldsType
         arguments:
-            - @doctrine.orm.entity_manager
+            - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type, alias: harentius_widget_route_fields }
 
@@ -31,15 +31,14 @@ services:
 
     harentius_widgets.entity.widgets_repository:
         public: false
-        class: Harentius\WidgetsBundle\Entity\Widget
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
+        class: Harentius\WidgetsBundle\Entity\WidgetRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ HarentiusWidgetsBundle:Widget ]
 
     harentius_widgets.twig.widgets_extension:
         class: Harentius\WidgetsBundle\Twig\WidgetsExtension
         arguments:
-            - @request_stack
-            - @harentius_widgets.entity.widgets_repository
+            - '@request_stack'
+            - '@harentius_widgets.entity.widgets_repository'
         tags:
             - { name: twig.extension }
